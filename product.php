@@ -298,91 +298,197 @@ $products = getAllData('products');
 			<div class="row isotope-grid">
 
 				<?php if (isset($filterPrice)) :  ?>
-					<?php foreach ($filterPrice as $filterproduct) : ?>
-						<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
-							<!-- Block2 -->
-							<div class="block2">
-								<div class="block2-pic hov-img0">
-									<img src="<?php echo $filterproduct['image'] ?>" alt="IMG-PRODUCT">
+					<?php if (isset($_POST['submit'])) : ?>
+						<?php $searchName = $_POST['search-product']; ?>
+						<?php foreach ($filterPrice as $filterproduct) : ?>
+							<?php if ($searchName == $filterproduct['name']) : ?>
+								<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+									<!-- Block2 -->
+									<div class="block2">
+										<div class="block2-pic hov-img0">
+											<img src="<?php echo $filterproduct['image'] ?>" alt="IMG-PRODUCT">
 
-									<a href="./product-detail.php?productid=<?php echo $filterproduct['id'] ?>" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
-										View
-									</a>
+											<a href="./product-detail.php?productid=<?php echo $filterproduct['id'] ?>" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+												View
+											</a>
+										</div>
+
+										<div class="block2-txt flex-w flex-t p-t-14">
+											<div class="block2-txt-child1 flex-col-l ">
+												<a href="./product-detail.php?productid=<?php echo $filterproduct['id'] ?>" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+													<?php echo $filterproduct['name'] ?>
+												</a>
+												<?php if ($filterproduct['discount'] != 1) : ?>
+													<span style="text-decoration:line-through"><?php echo $filterproduct['price'] ?> JOD</span>
+													<span class="stext-105 cl3">
+														<?php
+														$discount = $filterproduct['price'] * $filterproduct['discount'];
+														$priceAfterDiscount = $filterproduct['price'] - $discount;
+														echo $priceAfterDiscount . " JOD"
+														?>
+													</span>
+												<?php else : ?>
+													<span><?php echo $filterproduct['price'] ?> JOD</span>
+												<?php endif; ?>
+
+											</div>
+
+											<div class="block2-txt-child2 flex-r p-t-3">
+												<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+													<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
+													<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
+												</a>
+											</div>
+										</div>
+									</div>
 								</div>
+								<?php echo "<script>
+								if ( window.history.replaceState ) {
+									window.history.replaceState( null, null, window.location.href );
+								}
+							</script>" ?>
+							<?php endif; ?>
+						<?php endforeach; ?>
+					<?php else : ?>
+						<?php foreach ($filterPrice as $filterproduct) : ?>
+							<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+								<!-- Block2 -->
+								<div class="block2">
+									<div class="block2-pic hov-img0">
+										<img src="<?php echo $filterproduct['image'] ?>" alt="IMG-PRODUCT">
 
-								<div class="block2-txt flex-w flex-t p-t-14">
-									<div class="block2-txt-child1 flex-col-l ">
-										<a href="./product-detail.php?productid=<?php echo $filterproduct['id'] ?>" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-											<?php echo $filterproduct['name'] ?>
+										<a href="./product-detail.php?productid=<?php echo $filterproduct['id'] ?>" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+											View
 										</a>
-										<?php if ($filterproduct['discount'] != 1) : ?>
-											<span style="text-decoration:line-through"><?php echo $filterproduct['price'] ?> JOD</span>
-											<span class="stext-105 cl3">
-												<?php
-												$discount = $filterproduct['price'] * $filterproduct['discount'];
-												$priceAfterDiscount = $filterproduct['price'] - $discount;
-												echo $priceAfterDiscount . " JOD"
-												?>
-											</span>
-										<?php else : ?>
-											<span><?php echo $filterproduct['price'] ?> JOD</span>
-										<?php endif; ?>
-
 									</div>
 
-									<div class="block2-txt-child2 flex-r p-t-3">
-										<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-											<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
-											<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
-										</a>
+									<div class="block2-txt flex-w flex-t p-t-14">
+										<div class="block2-txt-child1 flex-col-l ">
+											<a href="./product-detail.php?productid=<?php echo $filterproduct['id'] ?>" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+												<?php echo $filterproduct['name'] ?>
+											</a>
+											<?php if ($filterproduct['discount'] != 1) : ?>
+												<span style="text-decoration:line-through"><?php echo $filterproduct['price'] ?> JOD</span>
+												<span class="stext-105 cl3">
+													<?php
+													$discount = $filterproduct['price'] * $filterproduct['discount'];
+													$priceAfterDiscount = $filterproduct['price'] - $discount;
+													echo $priceAfterDiscount . " JOD"
+													?>
+												</span>
+											<?php else : ?>
+												<span><?php echo $filterproduct['price'] ?> JOD</span>
+											<?php endif; ?>
+
+										</div>
+
+										<div class="block2-txt-child2 flex-r p-t-3">
+											<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+												<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
+												<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
+											</a>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					<?php endforeach ?>
+						<?php endforeach ?>
+					<?php endif ?>
 				<?php elseif (isset($categoryid) && $categoryid != 'all') : ?>
-					<?php foreach ($productbycategory as $catproduct) : ?>
-						<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
-							<!-- Block2 -->
-							<div class="block2">
-								<div class="block2-pic hov-img0">
-									<img src="<?php echo $catproduct['image'] ?>" alt="IMG-PRODUCT">
+					<?php if (isset($_POST['submit'])) : ?>
+						<?php $searchName = $_POST['search-product']; ?>
+						<?php foreach ($productbycategory as $catproduct) : ?>
+							<?php if ($searchName == $catproduct['name']) : ?>
+								<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+									<!-- Block2 -->
+									<div class="block2">
+										<div class="block2-pic hov-img0">
+											<img src="<?php echo $catproduct['image'] ?>" alt="IMG-PRODUCT">
 
-									<a href="./product-detail.php?productid=<?php echo $catproduct['id'] ?>" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
-										View
-									</a>
+											<a href="./product-detail.php?productid=<?php echo $catproduct['id'] ?>" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+												View
+											</a>
+										</div>
+
+										<div class="block2-txt flex-w flex-t p-t-14">
+											<div class="block2-txt-child1 flex-col-l ">
+												<a href="./product-detail.php?productid=<?php echo $catproduct['id'] ?>" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+													<?php echo $catproduct['name'] ?>
+												</a>
+												<?php if ($catproduct['discount'] != 1) : ?>
+													<span style="text-decoration:line-through"><?php echo $catproduct['price'] ?> JOD</span>
+													<span class="stext-105 cl3">
+														<?php
+														$discount = $catproduct['price'] * $catproduct['discount'];
+														$priceAfterDiscount = $catproduct['price'] - $discount;
+														echo $priceAfterDiscount . " JOD"
+														?>
+													</span>
+												<?php else : ?>
+													<span><?php echo $catproduct['price'] ?> JOD</span>
+												<?php endif; ?>
+
+											</div>
+
+											<div class="block2-txt-child2 flex-r p-t-3">
+												<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+													<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
+													<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
+												</a>
+											</div>
+										</div>
+									</div>
 								</div>
+								<?php echo "<script>
+								if ( window.history.replaceState ) {
+									window.history.replaceState( null, null, window.location.href );
+								}
+							</script>" ?>
+							<?php endif; ?>
+						<?php endforeach; ?>
+					<?php else : ?>
+						<?php foreach ($productbycategory as $catproduct) : ?>
+							<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+								<!-- Block2 -->
+								<div class="block2">
+									<div class="block2-pic hov-img0">
+										<img src="<?php echo $catproduct['image'] ?>" alt="IMG-PRODUCT">
 
-								<div class="block2-txt flex-w flex-t p-t-14">
-									<div class="block2-txt-child1 flex-col-l ">
-										<a href="./product-detail.php?productid=<?php echo $catproduct['id'] ?>" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-											<?php echo $catproduct['name'] ?>
+										<a href="./product-detail.php?productid=<?php echo $catproduct['id'] ?>" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+											View
 										</a>
-										<?php if ($catproduct['discount'] != 1) : ?>
-											<span style="text-decoration:line-through"><?php echo $catproduct['price'] ?> JOD</span>
-											<span class="stext-105 cl3">
-												<?php
-												$discount = $catproduct['price'] * $catproduct['discount'];
-												$priceAfterDiscount = $catproduct['price'] - $discount;
-												echo $priceAfterDiscount . " JOD"
-												?>
-											</span>
-										<?php else : ?>
-											<span><?php echo $catproduct['price'] ?> JOD</span>
-										<?php endif; ?>
-
 									</div>
 
-									<div class="block2-txt-child2 flex-r p-t-3">
-										<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-											<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
-											<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
-										</a>
+									<div class="block2-txt flex-w flex-t p-t-14">
+										<div class="block2-txt-child1 flex-col-l ">
+											<a href="./product-detail.php?productid=<?php echo $catproduct['id'] ?>" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+												<?php echo $catproduct['name'] ?>
+											</a>
+											<?php if ($catproduct['discount'] != 1) : ?>
+												<span style="text-decoration:line-through"><?php echo $catproduct['price'] ?> JOD</span>
+												<span class="stext-105 cl3">
+													<?php
+													$discount = $catproduct['price'] * $catproduct['discount'];
+													$priceAfterDiscount = $catproduct['price'] - $discount;
+													echo $priceAfterDiscount . " JOD"
+													?>
+												</span>
+											<?php else : ?>
+												<span><?php echo $catproduct['price'] ?> JOD</span>
+											<?php endif; ?>
+
+										</div>
+
+										<div class="block2-txt-child2 flex-r p-t-3">
+											<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+												<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
+												<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
+											</a>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					<?php endforeach; ?>
+						<?php endforeach; ?>
+					<?php endif; ?>
 				<?php else : ?>
 					<?php foreach ($products as $product) : ?>
 						<?php if (isset($_POST['submit'])) : ?>
@@ -479,8 +585,6 @@ $products = getAllData('products');
 						<?php endif ?>
 					<?php endforeach; ?>
 				<?php endif; ?>
-
-
 
 			</div>
 
