@@ -53,9 +53,9 @@ session_start();
 
                                 <ul class="main-menu">
                                     <li>
-                                        <a href="index.html">MyAccount</a>
+                                        <a href="">MyAccount</a>
                                         <ul class="sub-menu">
-                                            <li><a href="index.html">Profile</a></li>
+                                            <li><a href="profile.php">Profile</a></li>
                                             <li><a href="./register/includes/logout.inc.php">Logout</a></li>
                                         </ul>
                                         <span class="arrow-main-menu-m">
