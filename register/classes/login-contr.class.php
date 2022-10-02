@@ -20,7 +20,7 @@ class LoginContr extends Login
 
         if ($this->admin) {
             // edit according to admin page
-            $this->location = "admin.php";
+            $this->location = "./admin/index.php";
         } else {
 
             $this->location = "index.php";

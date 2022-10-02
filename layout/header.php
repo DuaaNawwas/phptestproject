@@ -1,5 +1,20 @@
 <?php
-session_start();
+if (!isset($_SESSION)) {
+
+    session_start();
+}
+
+
+require_once './config.php';
+require_once './functions.php';
+if ($_SESSION["email"]) {
+    $activeUser = getOneByEmail('users', $_SESSION["email"]);
+    $user_id = $activeUser['id'];
+}
+
+$rows = getRowsNumber("cart", ["user_id" => $user_id]);
+// $userCart = getCartDetails($user_id);
+
 ?>
 
 <header class="header-v2">
@@ -75,9 +90,8 @@ session_start();
                     </div>
 
 
-
                     <div class="flex-c-m h-full p-l-18 p-r-25 bor5">
-                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 icon-header-noti js-show-cart" data-notify="2">
+                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 icon-header-noti js-show-cart" data-notify="<?= $rows ?>">
                             <i class="zmdi zmdi-shopping-cart"></i>
                         </div>
                     </div>

@@ -1,7 +1,18 @@
 <?php
+if (!isset($_SESSION)) {
+	session_start();
+}
 require_once './config.php';
 require_once './functions.php';
 $pageName = 'Product Detail';
+if ($_SESSION["email"]) {
+	$activeUser = getOneByEmail('users', $_SESSION["email"]);
+	$user_id = $activeUser['id'];
+}
+// else {
+// echo "<script>window.location =  './index.php'</script>";
+// }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,91 +23,7 @@ $pageName = 'Product Detail';
 	<!-- Header -->
 	<?php require_once './layout/header.php' ?>
 
-	<!-- Cart -->
-	<div class="wrap-header-cart js-panel-cart">
-		<div class="s-full js-hide-cart"></div>
-
-		<div class="header-cart flex-col-l p-l-65 p-r-25">
-			<div class="header-cart-title flex-w flex-sb-m p-b-8">
-				<span class="mtext-103 cl2">
-					Your Cart
-				</span>
-
-				<div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
-					<i class="zmdi zmdi-close"></i>
-				</div>
-			</div>
-
-			<div class="header-cart-content flex-w js-pscroll">
-				<ul class="header-cart-wrapitem w-full">
-					<li class="header-cart-item flex-w flex-t m-b-12">
-						<div class="header-cart-item-img">
-							<img src="images/item-cart-01.jpg" alt="IMG">
-						</div>
-
-						<div class="header-cart-item-txt p-t-8">
-							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-								White Shirt Pleat
-							</a>
-
-							<span class="header-cart-item-info">
-								1 x $19.00
-							</span>
-						</div>
-					</li>
-
-					<li class="header-cart-item flex-w flex-t m-b-12">
-						<div class="header-cart-item-img">
-							<img src="images/item-cart-02.jpg" alt="IMG">
-						</div>
-
-						<div class="header-cart-item-txt p-t-8">
-							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-								Converse All Star
-							</a>
-
-							<span class="header-cart-item-info">
-								1 x $39.00
-							</span>
-						</div>
-					</li>
-
-					<li class="header-cart-item flex-w flex-t m-b-12">
-						<div class="header-cart-item-img">
-							<img src="images/item-cart-03.jpg" alt="IMG">
-						</div>
-
-						<div class="header-cart-item-txt p-t-8">
-							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-								Nixon Porter Leather
-							</a>
-
-							<span class="header-cart-item-info">
-								1 x $17.00
-							</span>
-						</div>
-					</li>
-				</ul>
-
-				<div class="w-full">
-					<div class="header-cart-total w-full p-tb-40">
-						Total: $75.00
-					</div>
-
-					<div class="header-cart-buttons flex-w w-full">
-						<a href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
-							View Cart
-						</a>
-
-						<a href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
-							Check Out
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
+	<?php require_once './layout/cartsidebar.php'; ?>
 	<?php
 	$id = $_GET["productid"];
 	$product = getOneById("products", $id);
@@ -171,28 +98,64 @@ $pageName = 'Product Detail';
 						</p>
 
 						<div class="p-t-33">
+							<form action="" method="post">
+								<div class="flex-w flex-r-m p-b-10">
+									<div class="size-204 flex-w flex-m respon6-next">
+										<div class="wrap-num-product flex-w m-r-20 m-tb-10">
+											<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+												<i class="fs-16 zmdi zmdi-minus"></i>
+											</div>
 
-							<div class="flex-w flex-r-m p-b-10">
-								<div class="size-204 flex-w flex-m respon6-next">
-									<div class="wrap-num-product flex-w m-r-20 m-tb-10">
-										<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-											<i class="fs-16 zmdi zmdi-minus"></i>
+											<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
+
+											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+												<i class="fs-16 zmdi zmdi-plus"></i>
+											</div>
 										</div>
 
-										<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
-
-										<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-											<i class="fs-16 zmdi zmdi-plus"></i>
-										</div>
+										<button type="submit" name="submit" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+											Add to cart
+										</button>
 									</div>
-
-									<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-										Add to cart
-									</button>
 								</div>
-							</div>
+							</form>
 						</div>
+						<?php
+						if (isset($_POST['submit'])) {
+							$quantity = $_POST['num-product'];
+							$sql = "SELECT * FROM cart WHERE product_id= $id AND user_id= $user_id";
+							$stmt = $conn->prepare($sql);
+							$stmt->execute();
+							$productInCart = $stmt->fetchAll();
 
+							// print_r($productInCart);
+							// echo (count($productInCart));
+							if (count($productInCart) > 0) {
+								$quantityUpdated = (int)$productInCart[0]['quantity'] + (int)$quantity;
+								// echo $quantityUpdated;
+								$sql = "UPDATE cart SET quantity = $quantityUpdated WHERE product_id= $id AND user_id= $user_id";
+								$stmt = $conn->prepare($sql);
+								$stmt->execute();
+								echo "<script>
+								if ( window.history.replaceState ) {
+									window.history.replaceState( null, null, window.location.href );
+								}
+							</script>";
+							} else {
+								$sql = "INSERT INTO cart (user_id, product_id, quantity) VALUES ($user_id,$id,$quantity)";
+								$stmt = $conn->prepare($sql);
+								$stmt->execute();
+								echo "<script>
+								if ( window.history.replaceState ) {
+									window.history.replaceState( null, null, window.location.href );
+								}
+								location.reload();
+							</script>";
+							}
+						}
+
+
+						?>
 					</div>
 				</div>
 			</div>

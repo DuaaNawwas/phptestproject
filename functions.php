@@ -86,3 +86,44 @@ function getBillDetails($id)
 
     return $productsForBill;
 }
+
+function getCartDetails($id)
+{
+    global $conn;
+    $stmt1 = $conn->prepare('SELECT *
+        FROM
+            products a
+                INNER JOIN
+            cart b
+                ON a.id = b.product_id
+                INNER JOIN 
+            users c
+                ON b.user_id = c.id WHERE c.id = ?;');
+
+    $stmt1->execute(array($id));
+
+    $productsForBill = $stmt1->fetchAll();
+
+    return $productsForBill;
+}
+
+
+function getRowsNumber($table, $condition = [])
+{
+    $key = array_keys($condition);
+    if ($condition) {
+        global $conn;
+        $sql = "select count(*) from $table where " . $key[0] . " = :" . $key[0];
+        $query = $conn->prepare($sql);
+        $query->execute([":" . $key[0] => $condition["$key[0]"]]);
+        $result = $query->fetch();
+        return $result[0];
+    } else {
+        global $conn;
+        $sql = "select count(*) from $table";
+        $query = $conn->prepare($sql);
+        $query->execute();
+        $result = $query->fetch();
+        return $result[0];
+    }
+}

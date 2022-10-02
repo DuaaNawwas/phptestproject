@@ -67,7 +67,7 @@ loginForm.addEventListener("submit", function (e) {
 		})
 			.then((response) => response.text())
 			.then((res) => {
-				if (res == "index.php" || res == "admin.php") {
+				if (res == "index.php" || res == "./admin/index.php") {
 					location.href = res;
 				} else {
 					alert(res);
