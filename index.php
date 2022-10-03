@@ -118,7 +118,7 @@ require_once './layout/head.php';
                 <div class="size-202 m-lr-auto respon4">
                     <!-- Block1 -->
                     <div class="block1 wrap-pic-w">
-                        <img src="<?= $category['image'] ?>" style="width:100%; height:400px" alt="IMG-BANNER">
+                        <img src="./admin/img/<?= $category['image'] ?>" style="width:100%; height:400px" alt="IMG-BANNER">
 
                         <a href="./product.php?categoryid=<?= $category['id'] ?>" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
                             <div class="block1-txt-child1 flex-col-l">
@@ -176,7 +176,7 @@ require_once './layout/head.php';
 
                                 <div class="block2">
                                     <div class="block2-pic hov-img0">
-                                        <img src="<?php echo $newProduct['image']; ?>" alt="IMG-PRODUCT">
+                                        <img src="./admin/img/<?php echo $newProduct['image']; ?>" alt="IMG-PRODUCT">
 
                                         <a href="product-detail.php?productid=<?php echo $newProduct['id'] ?>" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
                                             View
@@ -255,7 +255,7 @@ require_once './layout/head.php';
 
                                     <div class="block2">
                                         <div class="block2-pic hov-img0">
-                                            <img src="<?php echo $SaleProduct['image']; ?>" alt="IMG-PRODUCT">
+                                            <img src="./admin/img/<?php echo $SaleProduct['image']; ?>" alt="IMG-PRODUCT">
 
                                             <a href="product-detail.php?productid=<?php echo $SaleProduct['id'] ?>" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
                                                 View

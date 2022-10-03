@@ -3,7 +3,9 @@
 
 <?php
 $pageName = "Register & Login";
-require_once './layout/head.php'
+require_once './layout/head.php';
+
+
 ?>
 
 
@@ -13,7 +15,9 @@ require_once './layout/head.php'
 
 <body>
 
-    <?php require_once './layout/header.php' ?>
+    <?php require_once './layout/header.php';
+    require_once './layout/cartsidebar.php';
+    ?>
 
 
     <section class="bg0 p-t-104 p-b-116">

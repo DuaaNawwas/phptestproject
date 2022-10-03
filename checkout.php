@@ -48,7 +48,7 @@ require_once './functions.php';
     if ($_SESSION["email"]) {
         $activeUser = getOneByEmail('users', $_SESSION["email"]);
     } else {
-        echo "<script>window.location =  './index.php'</script>";
+        echo "<script>window.location =  './registration.php'</script>";
     }
 
     $user_id = $activeUser['id'];
@@ -84,19 +84,19 @@ require_once './functions.php';
                     <input type="hidden" value="<?= $total ?>" name="total">
                     <label for="fname-billing">First Name:</label>
                     <div class="bor8 m-b-20 how-pos4-parent">
-                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="fname" id="fname-billing" placeholder="Your First Name" required pattern="^[A-Za-z]*">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" value="<?= $activeUser['f_name'] ?>" type="text" name="fname" id="fname-billing" placeholder="Your First Name" required pattern="^[A-Za-z]*">
 
                     </div>
                     <label for="lname-billing">Last Name:</label>
 
                     <div class="bor8 m-b-20 how-pos4-parent">
-                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="lname" id="lname-billing" placeholder="Your Last Name" required pattern="^[A-Za-z]*">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" value="<?= $activeUser['l_name'] ?>" type="text" name="lname" id="lname-billing" placeholder="Your Last Name" required pattern="^[A-Za-z]*">
 
                     </div>
                     <label for="email-billing">Email:</label>
 
                     <div class="bor8 m-b-20 how-pos4-parent">
-                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="email" id="email-billing" placeholder="Your Email Address" required>
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" value="<?= $activeUser['email'] ?>" type="text" name="email" id="email-billing" placeholder="Your Email Address" required>
 
                     </div>
                     <label for="phone-billing">Phone:</label>

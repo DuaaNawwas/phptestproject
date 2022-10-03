@@ -106,9 +106,9 @@ require_once './functions.php';
                                     <td class="column-1">
                                         <?= $order['name'] ?>
                                     </td>
-                                    <td class="column-1">
+                                    <td class="column-2">
                                         <div class="how-itemcart1">
-                                            <img src="<?= $order['image'] ?>" alt="IMG">
+                                            <img src="./admin/img/<?= $order['image'] ?>" alt="IMG">
                                         </div>
                                     </td>
                                     <td class="column-3">

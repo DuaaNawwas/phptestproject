@@ -28,7 +28,7 @@ class RegisterContr extends Register
 
         $this->setUser($this->firstName, $this->lastName, $this->email, $this->password);
         $this->getUser($this->email);
-        $this->location = "index.php";
+        $this->location = "./index.php";
     }
     // error handlers
     private function emailTakenCheck()

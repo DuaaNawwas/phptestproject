@@ -157,7 +157,7 @@ form.addEventListener("submit", function (e) {
 		})
 			.then((response) => response.text())
 			.then((res) => {
-				if (res == "index.php") {
+				if (res == "./index.php") {
 					location.href = res;
 				} else {
 					alert(res);

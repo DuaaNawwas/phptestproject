@@ -45,6 +45,11 @@ require_once './functions.php';
             <br>
             <?php echo $activeUser["email"] ?>
         </h2>
+        <?php if ($activeUser['role'] == 'admin') : ?>
+            <a href="./admin/index.php">
+                Go To Dashboard
+            </a>
+        <?php endif ?>
     </section>
     <!-- <section class="sec-product bg0 p-t-10 p-b-50">
         <div class="container">
@@ -82,7 +87,7 @@ require_once './functions.php';
                                         <?= $bill['bill_number'] ?>
                                     </td>
                                     <td class="column-2"><?= $bill['date_ordered'] ?></td>
-                                    <td class="column-3"><?= $bill['total_price'] ?></td>
+                                    <td class="column-3"><?= $bill['total_price'] ?> JOD </td>
                                     <td class="column-4 ">
                                         <a href="./order-details.php?bill_id=<?= $bill['id'] ?>&bill_num=<?= $bill['bill_number'] ?>">
                                             View

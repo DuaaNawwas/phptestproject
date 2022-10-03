@@ -23,7 +23,7 @@ class LoginContr extends Login
             $this->location = "./admin/index.php";
         } else {
 
-            $this->location = "index.php";
+            $this->location = "./index.php";
         }
     }
 }

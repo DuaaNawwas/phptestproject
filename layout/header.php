@@ -2,17 +2,14 @@
 if (!isset($_SESSION)) {
 
     session_start();
+    require_once './config.php';
+    require_once './functions.php';
 }
 
 
-require_once './config.php';
-require_once './functions.php';
-if ($_SESSION["email"]) {
-    $activeUser = getOneByEmail('users', $_SESSION["email"]);
-    $user_id = $activeUser['id'];
-}
 
-$rows = getRowsNumber("cart", ["user_id" => $user_id]);
+
+
 // $userCart = getCartDetails($user_id);
 
 ?>
@@ -68,9 +65,9 @@ $rows = getRowsNumber("cart", ["user_id" => $user_id]);
 
                                 <ul class="main-menu">
                                     <li>
-                                        <a href="">MyAccount</a>
+                                        <a href="./profile.php">MyAccount</a>
                                         <ul class="sub-menu">
-                                            <li><a href="profile.php">Profile</a></li>
+                                            <li><a href="./profile.php">Profile</a></li>
                                             <li><a href="./register/includes/logout.inc.php">Logout</a></li>
                                         </ul>
                                         <span class="arrow-main-menu-m">
@@ -91,9 +88,19 @@ $rows = getRowsNumber("cart", ["user_id" => $user_id]);
 
 
                     <div class="flex-c-m h-full p-l-18 p-r-25 bor5">
-                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 icon-header-noti js-show-cart" data-notify="<?= $rows ?>">
-                            <i class="zmdi zmdi-shopping-cart"></i>
-                        </div>
+                        <?php if (isset($_SESSION["email"])) :
+                            $activeUser = getOneByEmail('users', $_SESSION["email"]);
+                            $user_id = $activeUser['id'];
+                            $rows = getRowsNumber("cart", ["user_id" => $user_id]) ?? "";
+                        ?>
+                            <div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 icon-header-noti js-show-cart" data-notify="<?= $rows ?>">
+                                <i class="zmdi zmdi-shopping-cart"></i>
+                            </div>
+                        <?php else : ?>
+                            <div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 icon-header-noti js-show-cart" data-notify="0">
+                                <i class="zmdi zmdi-shopping-cart"></i>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
 

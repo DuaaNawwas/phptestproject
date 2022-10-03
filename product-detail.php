@@ -67,7 +67,7 @@ if ($_SESSION["email"]) {
 
 
 							<div class="wrap-pic-w pos-relative">
-								<img src="<?php echo $product['image'] ?>" alt="IMG-PRODUCT">
+								<img src="./admin/img/<?php echo $product['image'] ?>" alt="IMG-PRODUCT">
 							</div>
 
 						</div>
@@ -365,7 +365,7 @@ if ($_SESSION["email"]) {
 								<!-- Block2 -->
 								<div class="block2">
 									<div class="block2-pic hov-img0">
-										<img src="<?= $product["image"] ?>" alt="IMG-PRODUCT">
+										<img src="./admin/img/<?= $product["image"] ?>" alt="IMG-PRODUCT">
 
 										<a href="product-detail.php?productid=<?php echo $product['id'] ?>" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 ">
 											View
